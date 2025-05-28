@@ -1,0 +1,8 @@
+.uni-tabbar-border {
+    display: none;
+}
+
+.page {
+    min-height: calc(100vh - var(--window-top) - var(--window-bottom));
+    background-color:#F2F3F5;
+}
