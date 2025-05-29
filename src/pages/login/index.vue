@@ -64,7 +64,7 @@ onMounted(() => {
 
 import { useUserStore } from '@/stores/modules/user';
 import { Navigation } from '@/utils/navigation';
-const { setProfile,profile } = useUserStore();
+const { setProfile, profile } = useUserStore();
 const handleLogin = async () => {
     if (!form.value.username) {
         showToast('请输入用户名');
@@ -83,9 +83,9 @@ const handleLogin = async () => {
     };
 
     let res = await login(data);
-    if(res.error == 0){
+    if (res.error == 0) {
         setProfile(res.data);
-        
+
         Navigation.reLaunch("/pages/index/index");
     }
 };
@@ -205,4 +205,41 @@ const navToRegister = () => {
         }
     }
 }
+
+
+
+.small_product_img {
+    position: relative;
+    overflow: hidden; /* 防止图片缩放时溢出容器 */
+    transition: all 0.3s ease; /* 容器整体过渡效果 */
+}
+
+.small_product_img::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:rgba(0,0,0,0.4); /* 渐变遮罩 */
+    opacity: 0;
+    transform: translateY(10px); /* 初始位置下移，增强过渡效果 */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* 遮罩层的透明度和位置过渡 */
+    z-index: 10;
+}
+
+.small_product_img:hover::after {
+    opacity: 1;
+    transform: translateY(0); /* 恢复原始位置 */
+}
+
+/* 图片本身的动画效果 */
+.small_product_img img {
+    transition: all 0.3s ease; /* 图片的所有变化都有过渡效果 */
+}
+
+.small_product_img:hover img {
+    transform: scale(1.05);
+}
+
 </style>

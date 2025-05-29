@@ -58,6 +58,12 @@
             "urlCheck": false
         },
         "permission": {
+            "scope.userBluetooth": {
+                "desc": "需要使用蓝牙进行设备通信"
+            },
+            "scope.bluetoothAlways": {
+                "desc": "需要始终使用蓝牙"
+            },
             "scope.bluetoothConnect": {
                 "desc": "你的位置信息将用于小程序蓝牙功能"
             },
@@ -65,6 +71,9 @@
                 "desc": "你的位置信息将用于小程序蓝牙功能"
             }
         },
+        "requiredBackgroundModes": [
+            "bluetooth-peripheral"
+        ],
         "usingComponents": true
     },
     "mp-alipay": {
