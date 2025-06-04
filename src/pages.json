@@ -15,7 +15,7 @@
 			}
 		},
 		{
-			"path": "pages/room/index",
+			"path": "pages/connect/index",
 			"style": {
 				"navigationBarTitleText": "设备",
 				"enablePullDownRefresh": true
@@ -46,7 +46,7 @@
 				"text": "首页"
 			},
 			{
-				"pagePath": "pages/room/index",
+				"pagePath": "pages/connect/index",
 				"text": "房间"
 			},
 			{
