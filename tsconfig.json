@@ -12,9 +12,13 @@
         "jsx": "preserve",
         "sourceMap": true,
         "resolveJsonModule": true,
-        "esModuleInterop": true,
         "lib": ["esnext", "dom"],
-        "types": ["@dcloudio/types"]
+        "types": ["@dcloudio/types"],
+        "allowJs": true,      // 允许编译JS文件
+        "declaration": true,  // 生成.d.ts类型声明文件
+        "checkJs": false,     // 不检查JS文件中的类型错误
+        "esModuleInterop": true, // 支持CommonJS和ES模块interop
+        "skipLibCheck": true,    // 跳过库文件的类型检查
     },
     "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/utils/crc32.ts"]
 }

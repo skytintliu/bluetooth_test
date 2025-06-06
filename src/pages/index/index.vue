@@ -6,38 +6,43 @@
 <script setup>
 import { hexToBuffer } from '@/utils/app';
 import { BLEEncryptor } from '@/utils/crypto';
+import { sendDataToDevice } from '@/utils/device';
 import { onMounted } from 'vue';
 
 let peripheralServer = null;
+
 
 onMounted(() => {
     initBluetooth()
 })
 async function initBluetooth() {
     // 开启蓝牙适配器
-    await wx.openBluetoothAdapter();
-    let res = await wx.createBLEPeripheralServer()
-    peripheralServer = res.server;
+    try {
+        await wx.openBluetoothAdapter();
+        let res = await uni.createBLEPeripheralServer()
+        peripheralServer = res.server;
+        console.log('开启外围设备成功');
+
+    }
+    catch (e) {
+        console.log(e, '开启外围设备错误');
+    }
 }
 
 let _seq = 0;
 
 const getSeq = () => (_seq++).toString(16).padStart(2, '0')
 
-let timer = null
+let timer = null;
+
 
 // 兼容的字符串转Uint8Array函数
 function startCustomAdvertising() {
-    clearTimeout(timer);
-
-    // 生成符合文档规范的AdvData
-    // const adType = 'FF';
     const version = '08'; // 版本0，设备发出
-    // const addr = 'a1548fb0'; // 示例Addr
-    const addr = 'bb744b52'; // 示例Addr
-    
-    const protocolData = '81BFFA000602'; // 示例Protocol Opcode和后续数据
-    // const compId = '0ACA';
+    const addr = '2ce83554'; // 示例Addr
+
+    const protocolData = '81bffa000602'; // 示例Protocol Opcode和后续数据    
+    // const protocolData = '81BFFAFFFE016464'; // 示例Protocol Opcode和后续数据
     let advData = `${getSeq()}${version}${addr}${protocolData}`;
 
     console.log(advData, advData.length);
@@ -53,23 +58,13 @@ function startCustomAdvertising() {
         ]
     };
 
-    peripheralServer.startAdvertising({
-        advertiseRequest,
-        success: () => {
-            console.log('广播已启动');
-        },
-        fail: (err) => console.error('启动广播失败', err)
-    });
+    peripheralServer.startAdvertising({ advertiseRequest });
 
     // 合理设置广播时间
-    timer = setTimeout(() => {
-        peripheralServer.stopAdvertising({
-            success: () => console.log('广播已停止'),
-            fail: (err) => console.error('停止广播失败', err)
-        });
-    }, 5000); // 3秒
+    timer = setTimeout(async () => {
+        peripheralServer.stopAdvertising();
+    }, 2000); // 2秒
 }
 
 </script>
 <style scoped lang="scss"></style>
-

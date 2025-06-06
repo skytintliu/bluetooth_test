@@ -7,14 +7,12 @@
     "transformPx": false,
     "app-plus": {
         "permissions": {
-            "BLUETOOTH": {
-                "description": "需要访问蓝牙设备"
+            "Bluetooth": {
+                "description": "使用蓝牙功能",
+                "request": "always"
             },
-            "BLUETOOTH_ADMIN": {
-                "description": "需要管理蓝牙设备"
-            },
-            "ACCESS_FINE_LOCATION": {
-                "description": "需要获取位置信息用于蓝牙扫描"
+            "Location": {
+                "description": "Android 蓝牙扫描需要位置权限"
             }
         },
         "usingComponents": true,
@@ -26,7 +24,9 @@
             "autoclose": true,
             "delay": 0
         },
-        "modules": {},
+        "modules": {
+            "Bluetooth": {}
+        },
         "distribute": {
             "android": {
                 "permissions": [

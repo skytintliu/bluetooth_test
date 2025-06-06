@@ -13,18 +13,18 @@
       <view class="slider-item">
         <text class="slider-label">亮度</text>
         <slider :value="brightness" @change="onBrightnessChange" min="1" max="100" show-value />
-        <view class="quick-controls">
+        <!-- <view class="quick-controls">
           <text @click="adjustBrightness('-')">-</text>
           <text @click="adjustBrightness('+')">+</text>
-        </view>
+        </view> -->
       </view>
       <view class="slider-item">
         <text class="slider-label">色温</text>
         <slider :value="colorTemp" @change="onColorTempChange" min="0" max="100" show-value />
-        <view class="quick-controls">
+        <!-- <view class="quick-controls">
           <text @click="adjustColorTemp('-')">-</text>
           <text @click="adjustColorTemp('+')">+</text>
-        </view>
+        </view> -->
       </view>
     </view>
 
@@ -124,6 +124,7 @@ const togglePower = () => {
 // 亮度控制
 const onBrightnessChange = (e: any) => {
   brightness.value = e.detail.value;
+  sendDataToDevice(deviceId, `0B00${getSeqence()}81BFFAFFFE01${(brightness.value).toString(16).padStart(2, '0')}${(colorTemp.value).toString(16).padStart(2,'0')}`, 2);
   // TODO: 发送蓝牙指令
 };
 
@@ -139,6 +140,7 @@ const adjustBrightness = (type: '+' | '-') => {
 // 色温控制
 const onColorTempChange = (e: any) => {
   colorTemp.value = e.detail.value;
+  sendDataToDevice(deviceId, `0B00${getSeqence()}81BFFAFFFE01${(brightness.value).toString(16).padStart(2, '0')}${(colorTemp.value).toString(16).padStart(2,'0')}`, 2);
   // TODO: 发送蓝牙指令
 };
 
